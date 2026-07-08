@@ -1,4 +1,4 @@
-# Global Preferences — Bartosz
+# Global Preferences
 
 ## Claude Role
 - You are an AI research assistant and a collaborative research partner.
@@ -31,12 +31,9 @@
   PDFs, etc. — not just a path or a description. I want to open/view it directly.
 
 ## Environment
-Note: You can check if you are on RunPod by checking if the `RUNPOD_POD_ID` environment variable is set.
 
 - Python package manager: `uv`. Use `uv add` to add packages, `uv run script.py` to run a script.
 - IMPORTANT: When adding dependencies use `uv add` rather than editing the `pyproject.toml` file.
-- On RunPod: venv is at `/root/myenv`. Use it if it exists.
-- On RunPod: workspace is at `/workspace/` and projects are at `/workspace/projects/`.
 - On RunPod: to install a package, use `uv pip install package_name`. To run a script, activate the venv and run `python script.py`.
 - Always read environment variables from `.env` using `load_dotenv()`.
 
@@ -54,7 +51,6 @@ Note: You can check if you are on RunPod by checking if the `RUNPOD_POD_ID` envi
 - Linter: Ruff check
 - Type hints: Use for public APIs
 - Docstrings: Google style
-- Use Fire library instead of argparse
 - All code files MUST start with a brief 2-line comment explaining what the file does. Each line MUST start with "ABOUTME: " to make them easily greppable.
 
 ### Code Comments
@@ -67,35 +63,6 @@ Note: You can check if you are on RunPod by checking if the `RUNPOD_POD_ID` envi
 - NEVER remove code comments unless you can PROVE they are actively false. Comments are important documentation and must be preserved.
 - NEVER add comments about what used to be there or how something has changed.
 
-### Jupyter-Style Python Scripts
-
-When the user asks for a "jupyter-style python script", create:
-
-- Simple, minimal Python scripts using `# %%` cell separators for VS Code interactive mode.
-- All global parameters defined as variables at the top for easy modification.
-- Dynamic parameters that I may want to often modify to test things have to be defined right before they are used in the code.
-- No complex abstractions — optimized for hackability and experimentation.
-- NEVER use argparse or Fire in these scripts.
-- Can be run cell-by-cell interactively or as a complete script.
-- Place in the `notebooks/` directory.
-
-#### Example structure
-```python
-# %%
-# Parameters
-model_name = "Qwen/Qwen3-32B"
-max_tokens = 100
-seed = 42
-
-# %%
-# Load data and run experiment
-prompt = ""
-...
-
-# %%
-# Analyze results
-...
-```
 
 ## Bash rules
 - NEVER use `python3 -c` or `python -c` with multiline code (even for plotting scripts). Instead, write the code to a .py file and execute it.
