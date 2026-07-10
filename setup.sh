@@ -48,5 +48,34 @@ for item in "${MANAGED_ITEMS[@]}"; do
     echo "[LINK] $dst -> $src"
 done
 
+# Symlink standalone home-directory dotfiles (name in repo -> path in $HOME)
+declare -A HOME_ITEMS=(
+    [tmux.conf]="$HOME/.tmux.conf"
+)
+
+for item in "${!HOME_ITEMS[@]}"; do
+    src="$DOTFILES_DIR/$item"
+    dst="${HOME_ITEMS[$item]}"
+
+    if [[ ! -e "$src" ]]; then
+        echo "[SKIP] $item (not in dotfiles repo)"
+        continue
+    fi
+
+    if [[ -L "$dst" ]] && [[ "$(readlink "$dst")" == "$src" ]]; then
+        echo "[OK]   $item"
+        continue
+    fi
+
+    if [[ -e "$dst" || -L "$dst" ]]; then
+        backup="$dst.backup.$(date +%Y%m%d%H%M%S)"
+        echo "[BACKUP] $dst -> $backup"
+        mv "$dst" "$backup"
+    fi
+
+    ln -s "$src" "$dst"
+    echo "[LINK] $dst -> $src"
+done
+
 echo ""
 echo "Claude Code config symlinks are set up."
