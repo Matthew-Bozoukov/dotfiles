@@ -143,7 +143,7 @@
       "mcp__alphaxiv__full_text_papers_search",
       "mcp__alphaxiv__agentic_paper_retrieval"
     ],
-    "defaultMode": "dontAsk",
+    "defaultMode": "acceptEdits",
     "additionalDirectories": [
       "/tmp"
     ]
